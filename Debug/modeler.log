@@ -1,0 +1,4 @@
+﻿cl : Command line warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  sample.cpp
+e:\study\comp4411\comp4411 pj2\modskels17\sample.cpp(184): warning C4305: 'argument': truncation from 'double' to 'float'
+  modeler.vcxproj -> E:\Study\COMP4411\COMP4411 Pj2\ModSkelS17\.\Debug\modeler.exe
