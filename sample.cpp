@@ -9,6 +9,7 @@
 #include <FL/gl.h>
 #include <GL/glu.h>
 #include "modelerglobals.h"
+#include "metaball.h"
 
 // To make a SampleModel, we inherit off of ModelerView
 class SampleModel : public ModelerView 
@@ -68,6 +69,7 @@ void SampleModel::draw()
 	drawBox(10,0.01f,10);
 	glPopMatrix();
 
+	
 	// ÙpperBody
 	setAmbientColor(.1f,.1f,.1f);
 	setDiffuseColor(COLOR_WHITE);
@@ -87,11 +89,6 @@ void SampleModel::draw()
 		glTranslated(0, VAL(PELVIS) / 90.0 * 3, 0);
 		glRotated(VAL(PELVIS), 1.0, 0.0, 0.0);
 		drawBox(2.8125, 2.55+VAL(HEIGHT)/2, 2.8125);
-		glPushMatrix();
-			glTranslated(0, 0, 2.85);
-			drawPlane(2.8125, 2.55 + VAL(HEIGHT) / 2, 1);
-			glTranslated(0, 0, -2.85);
-		glPopMatrix();
 		glPushMatrix();
 			//Tail
 			glTranslated(1.45, 1, 0.0);
@@ -124,6 +121,18 @@ void SampleModel::draw()
 				glTranslated(-2.5, 0.3, 0);
 				glRotated(VAL(RIGHT_HAND_ROTATE), 0.0, 0.0, 1.0);
 				drawBox(1, 2.75, 1);
+				glPushMatrix();
+					//Dumbbell
+					glTranslated(-0.5, 2.5, 0);
+					setDiffuseColor(COLOR_DARKBLUE);
+					MetaBall* tempBall = new MetaBall();
+					tempBall->addBall(1, 0.8, -0.4 - VAL(DUMBBELL), 0.7);
+					tempBall->addBall(1, 0.8, 1.3 + VAL(DUMBBELL), 0.7);
+					tempBall->draw(1.0);				
+					delete tempBall;
+					glTranslated(0, -2.75, 0);
+					setDiffuseColor(COLOR_WHITE);
+				glPopMatrix();
 				glRotated(-VAL(RIGHT_HAND_ROTATE), 0.0, 0.0, 1.0);
 			glPopMatrix();
 			glPushMatrix();
@@ -166,6 +175,8 @@ void SampleModel::draw()
 			glPopMatrix();
 		glPopMatrix();
 		
+	
+	
 	glPopMatrix();
 	glPopMatrix();
 
@@ -187,7 +198,8 @@ int main()
 	controls[RIGHT_HAND_ROTATE] = ModelerControl("Right Hand Rotate", -20, 70, 1, 0);
 	controls[PELVIS] = ModelerControl("Pelvis Rotate", 0, 90, 1, 0);
 	controls[HEAD] = ModelerControl("Head Rotate", -25, 25, 1, 0);
-	
+	controls[DUMBBELL] = ModelerControl("Dumbbell Length", -1, 1, 0.1f, 0);
+
 
 
     ModelerApplication::Instance()->Init(&createSampleModel, controls, NUMCONTROLS);

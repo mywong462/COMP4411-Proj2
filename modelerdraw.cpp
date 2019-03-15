@@ -301,28 +301,64 @@ void drawBox( double x, double y, double z )
         glBegin( GL_QUADS );
         
         glNormal3d( 0.0, 0.0, -1.0 );
-        glVertex3d( 0.0, 0.0, 0.0 ); glVertex3d( 0.0, 1.0, 0.0 );
-        glVertex3d( 1.0, 1.0, 0.0 ); glVertex3d( 1.0, 0.0, 0.0 );
+		glTexCoord2f(0.0, 0.0);
+        glVertex3d( 0.0, 0.0, 0.0 ); 
+		glTexCoord2f(0.0, 1.0);	
+		glVertex3d( 0.0, 1.0, 0.0 );
+		glTexCoord2f(1.0, 1.0);
+		glVertex3d( 1.0, 1.0, 0.0 ); 
+		glTexCoord2f(1.0, 0.0);	
+		glVertex3d( 1.0, 0.0, 0.0 );
         
         glNormal3d( 0.0, -1.0, 0.0 );
-        glVertex3d( 0.0, 0.0, 0.0 ); glVertex3d( 1.0, 0.0, 0.0 );
-        glVertex3d( 1.0, 0.0, 1.0 ); glVertex3d( 0.0, 0.0, 1.0 );
+		glTexCoord2f(0.0, 0.0);
+        glVertex3d( 0.0, 0.0, 0.0 ); 
+		glTexCoord2f(1.0, 0.0);	
+		glVertex3d( 1.0, 0.0, 0.0 );
+		glTexCoord2f(1.0, 1.0);
+		glVertex3d( 1.0, 0.0, 1.0 ); 
+		glTexCoord2f(0.0, 1.0);	
+		glVertex3d( 0.0, 0.0, 1.0 );
         
         glNormal3d( -1.0, 0.0, 0.0 );
-        glVertex3d( 0.0, 0.0, 0.0 ); glVertex3d( 0.0, 0.0, 1.0 );
-        glVertex3d( 0.0, 1.0, 1.0 ); glVertex3d( 0.0, 1.0, 0.0 );
+		glTexCoord2f(0.0, 0.0);
+        glVertex3d( 0.0, 0.0, 0.0 ); 
+		glTexCoord2f(0.0, 1.0);	
+		glVertex3d( 0.0, 0.0, 1.0 );
+		glTexCoord2f(1.0, 1.0);
+		glVertex3d( 0.0, 1.0, 1.0 ); 
+		glTexCoord2f(1.0, 0.0);	
+		glVertex3d( 0.0, 1.0, 0.0 );
         
         glNormal3d( 0.0, 0.0, 1.0 );
-        glVertex3d( 0.0, 0.0, 1.0 ); glVertex3d( 1.0, 0.0, 1.0 );
-        glVertex3d( 1.0, 1.0, 1.0 ); glVertex3d( 0.0, 1.0, 1.0 );
+		glTexCoord2f(0.0, 0.0);
+        glVertex3d( 0.0, 0.0, 1.0 ); 
+		glTexCoord2f(1.0, 0.0);	
+		glVertex3d( 1.0, 0.0, 1.0 );
+		glTexCoord2f(1.0, 1.0);
+		glVertex3d( 1.0, 1.0, 1.0 ); 
+		glTexCoord2f(0.0, 1.0);	
+		glVertex3d( 0.0, 1.0, 1.0 );
         
         glNormal3d( 0.0, 1.0, 0.0 );
-        glVertex3d( 0.0, 1.0, 0.0 ); glVertex3d( 0.0, 1.0, 1.0 );
-        glVertex3d( 1.0, 1.0, 1.0 ); glVertex3d( 1.0, 1.0, 0.0 );
+		glTexCoord2f(0.0, 0.0);
+        glVertex3d( 0.0, 1.0, 0.0 ); 
+		glTexCoord2f(1.0, 0.0);	
+		glVertex3d( 0.0, 1.0, 1.0 );
+		glTexCoord2f(1.0, 1.0);
+		glVertex3d( 1.0, 1.0, 1.0 ); 
+		glTexCoord2f(0.0, 1.0);	
+		glVertex3d( 1.0, 1.0, 0.0 );
         
         glNormal3d( 1.0, 0.0, 0.0 );
-        glVertex3d( 1.0, 0.0, 0.0 ); glVertex3d( 1.0, 1.0, 0.0 );
-        glVertex3d( 1.0, 1.0, 1.0 ); glVertex3d( 1.0, 0.0, 1.0 );
+		glTexCoord2f(0.0, 0.0);
+        glVertex3d( 1.0, 0.0, 0.0 ); 
+		glTexCoord2f(1.0, 0.0);	
+		glVertex3d( 1.0, 1.0, 0.0 );
+		glTexCoord2f(1.0, 1.0);
+		glVertex3d( 1.0, 1.0, 1.0 ); 
+		glTexCoord2f(0.0, 1.0);	
+		glVertex3d( 1.0, 0.0, 1.0 );
         
         glEnd();
         
