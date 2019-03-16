@@ -69,7 +69,19 @@ void SampleModel::draw()
 	drawBox(10,0.01f,10);
 	glPopMatrix();
 
+	glEnable(GL_LIGHT0);
+	if (VAL(LIGHTING) > 1) {
+		glEnable(GL_LIGHT1);
+		if (VAL(LIGHTING > 2))glEnable(GL_LIGHT2); else glDisable(GL_LIGHT2);;
+	}
+	else {
+		glDisable(GL_LIGHT1);
+		glDisable(GL_LIGHT2);
+	}
 	
+	
+
+
 	// ÙpperBody
 	setAmbientColor(.1f,.1f,.1f);
 	setDiffuseColor(COLOR_WHITE);
@@ -93,6 +105,11 @@ void SampleModel::draw()
 			//Tail
 			glTranslated(1.45, 1, 0.0);
 			drawSphere(0.45);
+			//Hula Hoop
+			setDiffuseColor(COLOR_RED);
+			glTranslated(0, 0.5, 2);
+			drawTorus(VAL(TORUS_OUTTER), VAL(TORUS_INNER), VAL(TORUS_XSUB), VAL(TORUS_YSUB));
+			setDiffuseColor(COLOR_WHITE);
 		glPopMatrix();
 		glPushMatrix();
 			//Legs
@@ -123,8 +140,11 @@ void SampleModel::draw()
 				drawBox(1, 2.75, 1);
 				glPushMatrix();
 					//Dumbbell
-					glTranslated(-0.5, 2.5, 0);
 					setDiffuseColor(COLOR_DARKBLUE);
+					glTranslated(-0.5, 2.5, 0);
+					glTranslated(0.7, 0.5, -0.5);
+					drawBox(0.5, 0.5, 1.75);
+					glTranslated(-0.7, -0.5, 0.5);
 					MetaBall* tempBall = new MetaBall();
 					tempBall->addBall(1, 0.8, -0.4 - VAL(DUMBBELL), 0.7);
 					tempBall->addBall(1, 0.8, 1.3 + VAL(DUMBBELL), 0.7);
@@ -177,6 +197,8 @@ void SampleModel::draw()
 		
 	
 	
+	
+	
 	glPopMatrix();
 	glPopMatrix();
 
@@ -198,10 +220,13 @@ int main()
 	controls[RIGHT_HAND_ROTATE] = ModelerControl("Right Hand Rotate", -20, 70, 1, 0);
 	controls[PELVIS] = ModelerControl("Pelvis Rotate", 0, 90, 1, 0);
 	controls[HEAD] = ModelerControl("Head Rotate", -25, 25, 1, 0);
-	controls[DUMBBELL] = ModelerControl("Dumbbell Length", -1, 1, 0.1f, 0);
+	controls[DUMBBELL] = ModelerControl("Dumbbell Transformation", -1, 0.7, 0.1f, 0);
+	controls[TORUS_INNER] = ModelerControl("Hula Hoop Inner Radius", 0.1f, 2.0f, 0.1f, 0.2f);
+	controls[TORUS_OUTTER] = ModelerControl("Hula Hoop Outter Radius", 0.5f, 5.0f, 0.5f, 4.0f);
+	controls[TORUS_XSUB] = ModelerControl("Hula Hoop X-Subdivisions", 3, 45, 1, 30.0f);
+	controls[TORUS_YSUB] = ModelerControl("Hula Hoop Y-Subdivisions", 3, 30, 1, 10.0f);
+	controls[LIGHTING] = ModelerControl("Number of Light", 1, 3, 1, 2);
 
-
-
-    ModelerApplication::Instance()->Init(&createSampleModel, controls, NUMCONTROLS);
+	ModelerApplication::Instance()->Init(&createSampleModel, controls, NUMCONTROLS);
     return ModelerApplication::Instance()->Run();
 }

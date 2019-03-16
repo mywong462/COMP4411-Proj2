@@ -2,7 +2,9 @@
 #include <FL/gl.h>
 #include <GL/glu.h>
 #include <cstdio>
+#include <iostream>
 #include <math.h>
+
 
 // ********************************************************
 // Support functions from previous version of modeler
@@ -493,6 +495,35 @@ void drawTriangle( double x1, double y1, double z1,
 }
 
 
+void drawTorus(float outerRadius, float innerRadius, int x_divisions, int y_divisions) {
+	
+	//Center 0,0,0
+	for (int j = 0; j < y_divisions; j++) {
+		for (int i = 0; i < x_divisions; i++) {
+			// x = outerRadius cos theta z = outerRadius sin theta
+			//float center1_x = outerRadius * cos((360.0 / x_divisions * i)*M_PI/180);
+			//float center1_z = outerRadius * sin((360.0 / x_divisions * i)*M_PI / 180);
+			//float center2_x = outerRadius * cos((360.0 / x_divisions * (i + 1))*M_PI / 180);
+			//float center2_z = outerRadius * sin((360.0 / x_divisions * (i + 1))*M_PI / 180);
+			float vertex1_1_x = (innerRadius * cos((360.0 / y_divisions * j)*M_PI / 180) + outerRadius)* cos((360.0 / x_divisions * i)*M_PI / 180);
+			float vertex1_1_z = (innerRadius * cos((360.0 / y_divisions * j)*M_PI / 180) + outerRadius)* sin((360.0 / x_divisions * i)*M_PI / 180);
+			float vertex1_1_y = innerRadius * sin((360.0 / y_divisions * j)*M_PI / 180);
+			float vertex1_2_x = (innerRadius * cos((360.0 / y_divisions * (j + 1))*M_PI / 180) + outerRadius)* cos((360.0 / x_divisions * i)*M_PI / 180);
+			float vertex1_2_z = (innerRadius * cos((360.0 / y_divisions * (j + 1))*M_PI / 180) + outerRadius)* sin((360.0 / x_divisions * i)*M_PI / 180);
+			float vertex1_2_y = innerRadius * sin((360.0 / y_divisions * (j+1))*M_PI / 180);
+			float vertex2_1_x = (innerRadius * cos((360.0 / y_divisions * j)*M_PI / 180) + outerRadius)* cos((360.0 / x_divisions * (i+1))*M_PI / 180);
+			float vertex2_1_z = (innerRadius * cos((360.0 / y_divisions * j)*M_PI / 180) + outerRadius)* sin((360.0 / x_divisions * (i+1))*M_PI / 180);
+			float vertex2_1_y = innerRadius * sin((360.0 / y_divisions * j)*M_PI / 180);
+			float vertex2_2_x = (innerRadius * cos((360.0 / y_divisions * (j + 1))*M_PI / 180) + outerRadius)* cos((360.0 / x_divisions * (i+1))*M_PI / 180);
+			float vertex2_2_z = (innerRadius * cos((360.0 / y_divisions * (j + 1))*M_PI / 180) + outerRadius)* sin((360.0 / x_divisions * (i+1))*M_PI / 180);
+			float vertex2_2_y = innerRadius * sin((360.0 / y_divisions * (j + 1))*M_PI / 180);
+			drawTriangle(vertex2_1_x, vertex2_1_y, vertex2_1_z, vertex1_1_x, vertex1_1_y, vertex1_1_z,  vertex1_2_x, vertex1_2_y, vertex1_2_z);
+			drawTriangle(vertex2_1_x, vertex2_1_y, vertex2_1_z, vertex1_2_x, vertex1_2_y, vertex1_2_z, vertex2_2_x, vertex2_2_y, vertex2_2_z);
+			
+
+		}
+	}
+}
 
 
 
