@@ -20,6 +20,8 @@ enum SampleModelControls
 #define COLOR_WHITE		1.0f, 1.0f, 1.0f
 #define COLOR_BLACK		0.0f, 0.0f, 0.0f
 #define COLOR_DARKBLUE	0.0f, 0.0f, 0.5f
+#define COLOR_YELLOW	1.0f, 1.0f, 0.0f
+
 
 
 // We'll be getting the instance of the application a lot; 

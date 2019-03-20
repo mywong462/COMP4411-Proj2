@@ -80,8 +80,7 @@ void SampleModel::draw()
 	}
 	
 	
-
-
+	
 	// ÙpperBody
 	setAmbientColor(.1f,.1f,.1f);
 	setDiffuseColor(COLOR_WHITE);
@@ -242,6 +241,16 @@ void SampleModel::draw()
 			glPopMatrix();
 			}
 		glPopMatrix();
+		glTranslated(4.0, 6.5, 0);
+		if (VAL(MOOD) == 3) {
+			setDiffuseColor(COLOR_RED);
+			drawStar(4, 1, 0.3);
+
+		}
+		else {
+		setDiffuseColor(COLOR_YELLOW);
+		drawStar(5, 1,0.3);
+		}
 		}
 	
 	}

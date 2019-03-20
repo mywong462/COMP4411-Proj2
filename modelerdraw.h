@@ -81,6 +81,8 @@ void closeRayFile();
 void drawSphere(double r);
 
 
+void drawStar(int side, float radius, float subRadius);
+
 void drawPlane(double x, double y, double z);
 
 // Draw an axis-aligned box from origin to (x,y,z)

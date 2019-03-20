@@ -371,6 +371,7 @@ void drawBox( double x, double y, double z )
     }
 }
 
+
 void drawTextureBox( double x, double y, double z )
 {
     // NOT IMPLEMENTED, SORRY (ehsu)
@@ -494,6 +495,35 @@ void drawTriangle( double x1, double y1, double z1,
     }
 }
 
+
+
+void drawStar(int side, float radius, float subRadius) {
+	glBegin(GL_TRIANGLES);
+	for (int j = 0; j < 2; j++){
+		float z;
+		j ? z = 0.25 : z = -0.25;
+		for (int i = 0; i < side; i++) {
+			float vertex1_1_x = radius * sin((360.0 / side * i)*M_PI / 180);
+			float vertex1_1_z = 0.0;
+			float vertex1_1_y = radius * cos((360.0 / side * i)*M_PI / 180);
+			float vertex1_2_x = subRadius * sin((360.0 / side * i + (360.0 / side)/2)*M_PI / 180);
+			float vertex1_2_z = 0.0;
+			float vertex1_2_y = subRadius * cos((360.0 / side * i + (360.0 / side)/2)*M_PI / 180);
+			drawTriangle(vertex1_1_x, vertex1_1_y, vertex1_1_z, vertex1_2_x, vertex1_2_y, vertex1_2_z, 0, 0, z);
+		}
+	
+		for (int i = 0; i < side; i++) {
+			float vertex1_1_x = subRadius * sin((360.0 / side * i + (360.0 / side)/2)*M_PI / 180);
+			float vertex1_1_z = 0.0;
+			float vertex1_1_y = subRadius * cos((360.0 / side * i + (360.0 / side)/2)*M_PI / 180);
+			float vertex1_2_x = radius * sin((360.0 / side * (i + 1))*M_PI / 180);
+			float vertex1_2_z = 0.0;
+			float vertex1_2_y = radius * cos((360.0 / side * (i + 1))*M_PI / 180);
+			drawTriangle(vertex1_1_x, vertex1_1_y, vertex1_1_z, 0, 0, z, vertex1_2_x, vertex1_2_y, vertex1_2_z);
+		}
+	}
+	glEnd();
+}
 
 void drawTorus(float outerRadius, float innerRadius, int x_divisions, int y_divisions) {
 	
