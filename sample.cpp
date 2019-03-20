@@ -91,7 +91,7 @@ void SampleModel::draw()
 	glTranslated(0, VAL(HEIGHT), 0);
 	glScaled(1, 1, 1);
 
-
+	if (VAL(DETAIL) > 1){
 	glPushMatrix();
 		//Torso
 		glTranslated(-1, 1, 0);
@@ -101,6 +101,7 @@ void SampleModel::draw()
 		glTranslated(0, VAL(PELVIS) / 90.0 * 3, 0);
 		glRotated(VAL(PELVIS), 1.0, 0.0, 0.0);
 		drawBox(2.8125, 2.55+VAL(HEIGHT)/2, 2.8125);
+		if (VAL(DETAIL) > 2) {
 		glPushMatrix();
 			//Tail
 			glTranslated(1.45, 1, 0.0);
@@ -108,7 +109,10 @@ void SampleModel::draw()
 			//Hula Hoop
 			setDiffuseColor(COLOR_RED);
 			glTranslated(0, 0.5, 2);
-			drawTorus(VAL(TORUS_OUTTER), VAL(TORUS_INNER), VAL(TORUS_XSUB), VAL(TORUS_YSUB));
+			if (VAL(MOOD) == 2) {
+				drawTorus(0, VAL(TORUS_INNER), VAL(TORUS_XSUB), VAL(TORUS_YSUB));
+			}
+			else drawTorus(VAL(TORUS_OUTTER), VAL(TORUS_INNER), VAL(TORUS_XSUB), VAL(TORUS_YSUB));
 			setDiffuseColor(COLOR_WHITE);
 		glPopMatrix();
 		glPushMatrix();
@@ -127,6 +131,7 @@ void SampleModel::draw()
 			glTranslated(0, VAL(HEIGHT)/2, 0);
 			glTranslated(0, 2.5, 0.25);
 			drawBox(2.8125, 1.5, 2.25);
+			if (VAL(DETAIL) > 3) {
 			glPushMatrix();
 				//Hand
 				glRotated(160, 0.0, 0.0, 1.0);
@@ -136,9 +141,12 @@ void SampleModel::draw()
 				glRotated(-VAL(LEFT_HAND_ROTATE), 0.0, 0.0, 1.0);
 				glRotated(-320, 0.0, 0.0, 1.0);
 				glTranslated(-2.5, 0.3, 0);
-				glRotated(VAL(RIGHT_HAND_ROTATE), 0.0, 0.0, 1.0);
+				if (VAL(MOOD) == 2) glRotated(22.5, 0.0, 0.0, 1.0);
+				else if (VAL(MOOD) == 3) glRotated(45, 0.0, 0.0, 1.0);
+				else glRotated(VAL(RIGHT_HAND_ROTATE), 0.0, 0.0, 1.0);
 				drawBox(1, 2.75, 1);
-				glPushMatrix();
+				if (VAL(DETAIL) > 4) {
+					glPushMatrix();
 					//Dumbbell
 					setDiffuseColor(COLOR_DARKBLUE);
 					glTranslated(-0.5, 2.5, 0);
@@ -146,14 +154,26 @@ void SampleModel::draw()
 					drawBox(0.5, 0.5, 1.75);
 					glTranslated(-0.7, -0.5, 0.5);
 					MetaBall* tempBall = new MetaBall();
-					tempBall->addBall(1, 0.8, -0.4 - VAL(DUMBBELL), 0.7);
-					tempBall->addBall(1, 0.8, 1.3 + VAL(DUMBBELL), 0.7);
+					if (VAL(MOOD) == 2) {
+						tempBall->addBall(1, 0.8, -0.4+1, 0.7);
+						tempBall->addBall(1, 0.8, 1.3 + -1, 0.7);
+					}
+					else if (VAL(MOOD) == 3) {
+						tempBall->addBall(1, 0.8, -1.1, 0.7);
+						tempBall->addBall(1, 0.8, 2.0, 0.7);
+					}
+					else {
+						tempBall->addBall(1, 0.8, -0.4 - VAL(DUMBBELL), 0.7);
+						tempBall->addBall(1, 0.8, 1.3 + VAL(DUMBBELL), 0.7);
+					}
 					tempBall->draw(1.0);				
 					delete tempBall;
 					glTranslated(0, -2.75, 0);
 					setDiffuseColor(COLOR_WHITE);
 				glPopMatrix();
-				glRotated(-VAL(RIGHT_HAND_ROTATE), 0.0, 0.0, 1.0);
+				if (VAL(MOOD) == 2) glRotated(-22.5, 0.0, 0.0, 1.0);
+				else glRotated(-VAL(RIGHT_HAND_ROTATE), 0.0, 0.0, 1.0);
+				
 			glPopMatrix();
 			glPushMatrix();
 				//Head
@@ -162,6 +182,7 @@ void SampleModel::draw()
 				glTranslated(0.15, 1.5, 0);
 				drawBox(2.5, 2.5, 2);
 				glPushMatrix();
+					if (VAL(DETAIL) > 5) {
 					//Face
 					glTranslated(0.5, 0.2, 0.75);
 					drawBox(1.6, 1.2, 2);
@@ -173,8 +194,21 @@ void SampleModel::draw()
 					glPopMatrix();
 					glPushMatrix();
 						glTranslated(0.5, 0.3, 2.0);
-						drawBox(0.5, 0.1, 0.1);			
+						drawBox(0.5, 0.1, 0.1);
+						//Lips
+						if (VAL(MOOD) == 2 ){
+						glPushMatrix();
+							glTranslated(-0.05, 0.0, 0);
+							glRotated(45, 0.0, 0, 1.0);
+							drawBox(0.1, 0.3, 0.1);
+							glRotated(-45, 0.0, 0, 1.0);
+							glTranslated(0.55, 0.05, 0);
+							glRotated(-45, 0.0, 0, 1.0);
+							drawBox(0.1, 0.3, 0.1);
+						glPopMatrix();
+						}
 					glPopMatrix();
+					}
 				glPopMatrix();
 				glPushMatrix();
 					//Ear
@@ -191,12 +225,26 @@ void SampleModel::draw()
 					drawSphere(0.15);
 					glTranslated(1.3, 0, 0);
 					drawSphere(0.15);
+					if (VAL(MOOD) == 3){
+					glPushMatrix();
+						//Eyelash
+						glTranslated(-0.1, 0.10, 0);
+						glRotated(-70, 0, 0, 1);
+						drawBox(0.1, 0.45, 0.1);
+						glRotated(70, 0, 0, 1);
+						glTranslated(-1.1, -0.1, 0);
+						glRotated(70, 0, 0, 1);
+						drawBox(0.1, 0.45, 0.1);
+					glPopMatrix();
+					}
 				glPopMatrix();
+				}
 			glPopMatrix();
+			}
 		glPopMatrix();
-		
+		}
 	
-	
+	}
 	
 	
 	glPopMatrix();
@@ -222,10 +270,14 @@ int main()
 	controls[HEAD] = ModelerControl("Head Rotate", -25, 25, 1, 0);
 	controls[DUMBBELL] = ModelerControl("Dumbbell Transformation", -1, 0.7, 0.1f, 0);
 	controls[TORUS_INNER] = ModelerControl("Hula Hoop Inner Radius", 0.1f, 2.0f, 0.1f, 0.2f);
-	controls[TORUS_OUTTER] = ModelerControl("Hula Hoop Outter Radius", 0.5f, 5.0f, 0.5f, 4.0f);
+	controls[TORUS_OUTTER] = ModelerControl("Hula Hoop Outter Radius", 0.0f, 5.0f, 0.5f, 4.0f);
 	controls[TORUS_XSUB] = ModelerControl("Hula Hoop X-Subdivisions", 3, 45, 1, 30.0f);
 	controls[TORUS_YSUB] = ModelerControl("Hula Hoop Y-Subdivisions", 3, 30, 1, 10.0f);
 	controls[LIGHTING] = ModelerControl("Number of Light", 1, 3, 1, 2);
+	controls[DETAIL] = ModelerControl("Detail", 1, 6, 1, 6);
+	//2 = Happy 3 = WorkHard
+	controls[MOOD] = ModelerControl("Mood Cycling", 1, 3, 1, 1);
+	
 
 	ModelerApplication::Instance()->Init(&createSampleModel, controls, NUMCONTROLS);
     return ModelerApplication::Instance()->Run();
